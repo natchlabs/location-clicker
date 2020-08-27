@@ -62,8 +62,18 @@ async function addLocation(latLng) {
     input.value = 'Undefined value'
     list[latLng] = 'Undefined value'
 }
-document.body.appendChild(panel)
 
 const list = {}
+
 const panel = document.createElement('div')
 panel.className = 'panel'
+
+const copyButton = document.createElement('div')
+copyButton.className = 'copyButton'
+// lets the user copy the data to the clipboard so that it can be extracted from the extension
+copyButton.addEventListener('click', e => {
+    navigator.clipboard.writeText(JSON.stringify(list))
+})
+
+document.body.appendChild(panel)
+document.body.appendChild(copyButton)

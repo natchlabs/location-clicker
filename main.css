@@ -23,3 +23,12 @@
     background-color: grey;
     padding-left: 10px;
 }
+
+.copyButton {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: solid black 1px;
+    top: 196px;
+    right: 12px;
+}
