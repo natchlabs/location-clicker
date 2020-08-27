@@ -1,0 +1,25 @@
+.panel {
+    position: absolute;
+    width: 150px;
+    height: 200px;
+    overflow: hidden scroll;
+    background-color: grey;
+
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+
+}
+.panel::-webkit-scrollbar {
+    display: none;
+}
+.item:nth-child(even) {
+    background-color: lightgrey;
+}
+
+.item {
+    font-size: 10px;
+    border-bottom: solid white 1px;
+    background-color: grey;
+    padding-left: 10px;
+}
