@@ -1,0 +1,14 @@
+{
+    "name": "location-clicker",
+    "version": "1.0",
+    "description": "Tool to assist in creating a compiled list of locations from Google maps.",
+
+    "content_scripts": [
+        {
+            "matches": ["https://www.google.co.nz/maps/*"],
+            "js": ["contentScript.js"],
+            "css": ["main.css"]
+        }
+    ],
+    "manifest_version": 2
+}
