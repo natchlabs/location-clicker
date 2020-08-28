@@ -18,7 +18,7 @@ const scene = document.querySelector('#scene')
 scene.addEventListener('click', e => {
     const latLngDisplay = document.querySelector(latLngSelector)
 
-    if(latLngDisplay.textContent) {
+    if(latLngDisplay && latLngDisplay.textContent) {
         addLocation(latLngDisplay.textContent)
     }
     closeLatLngDisplay()
@@ -31,10 +31,7 @@ function createLocationElement(latLng) {
     item.textContent = latLng
 
     const input = document.createElement('input')
-    // allow the user to manually override the geocoder
-    input.addEventListener('keypress', e => {
-        list[latLng] = input.value
-    })
+    
     item.appendChild(input)
     panel.appendChild(item)
     return input
@@ -49,21 +46,34 @@ async function addLocation(latLng) {
     const response = await fetch(geocodeUrl + `&lat=${lat}&lon=${lon}`)
     const result = await response.json()
     
+    let locationItem = {}
+
     // read the response and get the most local property of the place name possible (i.e. prefer the town name over the city name)
     const a = result.address
     for(const area of geocodeLookups) {
         if(a[area]) {
             input.value = a[area]
-            list[latLng] = a[area]
+            locationItem = {
+                name: a[area],
+                lat: Number(lat),
+                lng: Number(lon)
+            }
+            list.push(locationItem)
             return
         }
     }
     // if this fails, give an undefined value
     input.value = 'Undefined value'
+    list.push(locationItem)
     list[latLng] = 'Undefined value'
+
+    // allow the user to manually override the geocoder
+    input.addEventListener('keypress', e => {
+        locationItem.name = input.value
+    })
 }
 
-const list = {}
+const list = []
 
 const panel = document.createElement('div')
 panel.className = 'panel'
